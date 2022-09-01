@@ -1,0 +1,107 @@
+{% extends 'base.html'%}
+
+{%block scripts%}
+<script>
+// jquery function
+
+function toMonthName(monthNumber) {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+  
+    return date.toLocaleString('en-US', {
+      month: 'short',
+    });
+  }
+
+$(document).ready(function(){
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var month = toMonthName(month)
+        console.log("month--0-==-==-=-=-=-=-=->", month);
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: { 
+                labels: [{%for data in qs%}{{data.month}},{%endfor%}], //loop through queryset, 
+                datasets: [{
+                    label: 'Cash',
+                    data: [{%for data in qs%}{{data.total_cash}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 99, 132)',
+                    ],
+                    borderWidth: 1
+                },
+                {
+                    label: 'Online',
+                    data: [{%for data in qs%}{{data.total_online_payment}},{%endfor%}],
+                    backgroundColor: [
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 159, 64)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+});
+    });
+</script>
+{%endblock scripts%}
+
+{%block content%}
+<!-- displaying the chart -->
+<!-- you can also play around with the width and height to increase or decrease the chart size -->
+<canvas id="myChart" width="400" height="100"></canvas>  
+{%endblock content%}
